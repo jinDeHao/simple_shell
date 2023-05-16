@@ -28,6 +28,8 @@ int main(void)
 			}
 			else if (pid > 0)
 				waitpid(pid, &stat, 0);
+			else
+				perror("fork");
 			free(line);
 			line = NULL;
 		}
