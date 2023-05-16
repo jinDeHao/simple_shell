@@ -6,12 +6,13 @@
 int main(void)
 {
 	size_t len;
-	char *line, *command, *args[] = {NULL, NULL};
-	int stat, nr, loop;
+	char *line, *command, **args;
+	int stat, nr, loop, i = 1, num_args;
 	pid_t pid;
 
 	while (1)
 	{
+		args = NULL;
 		if (isatty(STDIN_FILENO) == 1 || loop == 1)
 			write(STDOUT_FILENO, "#cisfun$ ", 9);
 		nr = getline(&line, &len, stdin);
@@ -22,16 +23,25 @@ int main(void)
 			if (pid == 0)
 			{
 				command = ignore_spaces(line);
-				args[0] = command;
-				execve(command, args, NULL);
+				num_args = count_args(command); 
+				args = allocate_buffer(num_args);
+				args[0] = strtok(command, " ");
+				while (i < num_args)
+				{
+					args[i] = strtok(NULL, " ");
+					i++;
+				}
+				args[i] = NULL;
+				execve(args[0], args, NULL);
 				perror("./shell");
 			}
-			else if (pid > 0)
+			eargs = allocate_buffer(num_args);lse if (pid > 0)
 				waitpid(pid, &stat, 0);
 			else
 				perror("fork");
 			free(line);
 			line = NULL;
+			free(args);
 		}
 		else
 			break;
@@ -57,3 +67,18 @@ char *ignore_spaces(char *old_line)
 	*(end_line + 1) = '\0';
 	return (new_line);
 }
+/**
+ * allocate_buffer - allocate memory for args
+ * @num_args: number of args
+ * Return: args
+ */
+char **allocate_buffer(int num_args)
+{
+	char **args;
+
+	args = malloc((num_args + 1) * sizeof(char *));
+	if (!args)
+		exit(1);
+	return (args);
+}
+
