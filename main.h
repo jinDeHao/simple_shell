@@ -12,9 +12,10 @@
 #include <stdio.h>
 #include <string.h>
 
-char **allocate_buffer(int num_args);
+char **allocate_buffer(int num_args, char *command);
 int count_args(char *line);
 char *ignore_spaces(char *old_line);
 int _strlen(char *str);
+char *_strdup(char *str);
 
 #endif

@@ -7,7 +7,7 @@ int main(void)
 {
 	size_t len;
 	char *line, *command, **args;
-	int stat, nr, loop, i = 1, num_args;
+	int stat, nr, loop, num_args;
 	pid_t pid;
 
 	while (1)
@@ -23,19 +23,12 @@ int main(void)
 			if (pid == 0)
 			{
 				command = ignore_spaces(line);
-				num_args = count_args(command); 
-				args = allocate_buffer(num_args);
-				args[0] = strtok(command, " ");
-				while (i < num_args)
-				{
-					args[i] = strtok(NULL, " ");
-					i++;
-				}
-				args[i] = NULL;
+				num_args = count_args(command);
+				args = allocate_buffer(num_args, command);
 				execve(args[0], args, NULL);
 				perror("./shell");
 			}
-			eargs = allocate_buffer(num_args);lse if (pid > 0)
+			else if (pid > 0)
 				waitpid(pid, &stat, 0);
 			else
 				perror("fork");
@@ -46,7 +39,7 @@ int main(void)
 		else
 			break;
 		loop++;
-		}
+	}
 	return (0);
 }
 
@@ -70,15 +63,24 @@ char *ignore_spaces(char *old_line)
 /**
  * allocate_buffer - allocate memory for args
  * @num_args: number of args
+ * @command: command line
  * Return: args
  */
-char **allocate_buffer(int num_args)
+char **allocate_buffer(int num_args, char *command)
 {
-	char **args;
+	char **args, *delimiter = " ", *args_use;
+	int i = 0;
 
 	args = malloc((num_args + 1) * sizeof(char *));
 	if (!args)
 		exit(1);
+	args_use = strtok(command, delimiter);
+	while (args_use != NULL)
+	{
+	args[i] = _strdup(args_use);
+	args_use = strtok(NULL, delimiter);
+	i++;
+	}
+	args[i] = NULL;
 	return (args);
 }
-
