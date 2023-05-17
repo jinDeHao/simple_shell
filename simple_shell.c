@@ -34,7 +34,7 @@ int main(void)
 				perror("fork");
 			free(line);
 			line = NULL;
-			free(args);
+			special_free(args);
 		}
 		else
 			break;
@@ -73,7 +73,7 @@ char **allocate_buffer(int num_args, char *command)
 
 	args = malloc((num_args + 1) * sizeof(char *));
 	if (!args)
-		exit(1);
+		return (NULL);
 	args_use = strtok(command, delimiter);
 	while (args_use != NULL)
 	{
@@ -83,4 +83,23 @@ char **allocate_buffer(int num_args, char *command)
 	}
 	args[i] = NULL;
 	return (args);
+}
+/**
+ * special_free - free all memo
+ * @args: pointe to pointer
+ */
+void special_free(char **args)
+{
+	int i = 0;
+
+	if (args != NULL)
+	{
+		while (args[i] != NULL)
+		{
+			free(args[i]);
+			i++;
+		}
+		free(args[i]);
+		free(args);
+	}
 }
