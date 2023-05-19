@@ -15,6 +15,7 @@
 #define BUFF_SIZE 1024
 extern char **environ;
 
+int get_built_in(char *str);
 void special_free(char **args);
 char **allocate_buffer(int num_args, char *command);
 int count_args(char *line);

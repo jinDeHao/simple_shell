@@ -18,6 +18,11 @@ int main(void)
 		{
 			line[nr - 1] = '\0';
 			command = ignore_spaces(line);
+			if (get_built_in(command) == 0)
+			{
+				free(line);
+				break;
+			}
 			super_execute(command);
 			free(line);
 			line = NULL;

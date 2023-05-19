@@ -19,3 +19,17 @@ int our_strncmp(char *f_str, char *s_str, int n)
 	}
 	return (0);
 }
+/**
+ * get_built_in - get built in commands
+ * @str: comands
+ * Return: 0 if success
+ */
+int get_built_in(char *str)
+{
+	int i = -1;
+
+	if (_strlen(str) == 4)
+		i = our_strncmp(str, "exit", 4);
+	return (i);
+}
+
