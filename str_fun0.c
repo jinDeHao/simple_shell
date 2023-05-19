@@ -63,3 +63,47 @@ char *_strdup(char *str)
 	buff[j] = '\0';
 	return (buff);
 }
+
+/**
+ * _strcpy - copy the string to the other.
+ * @src: The from string
+ * @dest: The to string
+ * Return: On success the to string.
+*/
+char *_strcpy(char *dest, char *src)
+{
+	int l = 0, i;
+
+	while (src[l] != '\0')
+		l++;
+	for (i = 0; i <= l; i++)
+		dest[i] = src[i];
+	return (dest);
+}
+
+/**
+ * _strcat - concat string to other
+ * @dest: The string to.
+ * @src: The string from.
+ * Return: On success the string.
+ */
+char *_strcat(char *dest, char *src)
+{
+	int i = 0;
+
+	while (*dest != '\0')
+	{
+		dest++;
+		i++;
+	}
+	while (*src != '\0')
+	{
+		*dest = *src;
+		dest++;
+		i++;
+		src++;
+	}
+	*dest = '\0';
+	dest -= i;
+	return (dest);
+}

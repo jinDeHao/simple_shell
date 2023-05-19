@@ -6,35 +6,21 @@
 int main(void)
 {
 	size_t len;
-	char *line, *command, **args;
-	int stat, nr, loop, num_args;
-	pid_t pid;
+	char *line, *command;
+	int nr, loop;
 
 	while (1)
 	{
-		args = NULL;
 		if (isatty(STDIN_FILENO) == 1 || loop == 1)
 			write(STDOUT_FILENO, "#cisfun$ ", 9);
 		nr = getline(&line, &len, stdin);
 		if (nr >= 0)
 		{
 			line[nr - 1] = '\0';
-			pid = fork();
-			if (pid == 0)
-			{
-				command = ignore_spaces(line);
-				num_args = count_args(command);
-				args = allocate_buffer(num_args, command);
-				execve(args[0], args, NULL);
-				perror("./shell");
-			}
-			else if (pid > 0)
-				waitpid(pid, &stat, 0);
-			else
-				perror("fork");
+			command = ignore_spaces(line);
+			super_execute(command);
 			free(line);
 			line = NULL;
-			special_free(args);
 		}
 		else
 			break;
