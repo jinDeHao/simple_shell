@@ -7,7 +7,7 @@ int main(void)
 {
 	size_t len;
 	char *line, *command;
-	int nr, loop;
+	int nr, loop, statu = 0;
 
 	while (1)
 	{
@@ -18,12 +18,9 @@ int main(void)
 		{
 			line[nr - 1] = '\0';
 			command = ignore_spaces(line);
-			if (get_built_in(command) == 0)
-			{
-				free(line);
-				break;
-			}
-			super_execute(command);
+			/*built_in(command, line, statu);*/
+			if (!built_in(command, line, statu))
+				statu = super_execute(command);
 			free(line);
 			line = NULL;
 		}

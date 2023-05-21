@@ -2,23 +2,20 @@
 /**
  * super_execute - execute the file
  * @command_line: the file to execute
+ * Return: the status of the last process
 */
-void super_execute(char *command_line)
+int super_execute(char *command_line)
 {
 	pid_t pid;
-	char **args = NULL, *env[] = {NULL}, *path;
-	int num_args, stat, idx = 0, j = 0;
+	char **args = NULL, **env = environ, *path;
+	int num_args, stat = 0;
 
 	if (*command_line != '\0')
 	{
 		num_args = count_args(command_line);
 		args = allocate_buffer(num_args, command_line);
 		path = full_path(args[0]);
-		if (our_strncmp(path, args[0], _strlen(args[0])) == 0)
-			idx = 1;
-		if ((*args[0] == '.' && *(args[0] + 1) == '/'))
-			j = 1;
-		if (idx == 0 || *args[0] == '/' || j == 1)
+		if (path != NULL)
 		{
 			pid = fork();
 			if (pid == 0)
@@ -32,12 +29,10 @@ void super_execute(char *command_line)
 				perror("fork");
 		}
 		else
-		{
-			write(STDERR_FILENO, path, _strlen(path));
-			write(STDERR_FILENO, ": command not found\n", 21);
-		}
+			perror(args[0]);
 		special_free(args);
 	}
+	return (stat);
 }
 
 /**
@@ -49,9 +44,11 @@ char *full_path(char *file_name)
 {
 	char right_path[BUFF_SIZE] = "/bin", *ptr_path;
 
+	if (access(file_name, F_OK) == 0)
+		return (file_name);
 	_strcat(right_path, "/");
 	ptr_path = _strcat(right_path, file_name);
 	if (access(ptr_path, X_OK) == 0)
 		return (ptr_path);
-	return (file_name);
+	return (NULL);
 }

@@ -13,19 +13,31 @@
 #include <string.h>
 
 #define BUFF_SIZE 1024
+
 extern char **environ;
 
+/*built in functions*/
 int get_built_in(char *str);
+int built_in(char *command, char *free_line, int process_status);
+void puts_env(void);
+
+/*memory fuctions*/
 void special_free(char **args);
 char **allocate_buffer(int num_args, char *command);
-int count_args(char *line);
+
+/*path functions*/
+char *full_path(char *file_name);
+
+/*command line and execution functions*/
 char *ignore_spaces(char *old_line);
+int super_execute(char *command_line);
+int count_args(char *line);
+
+/*string functions*/
 int _strlen(char *str);
 char *_strdup(char *str);
-void super_execute(char *command_line);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 int our_strncmp(char *str1, char *str2, int n);
-char *full_path(char *file_name);
 
 #endif
