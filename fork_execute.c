@@ -51,23 +51,23 @@ char *full_path(char *file_name)
 	{
 		if (our_strncmp(env[i], "PATH=", 5) == 0)
 		{
-            paths = _strdup(env[i] + 5);
+			paths = _strdup(env[i] + 5);
 			f_paths = strtok(paths, ":");
-            while (f_paths)
-            {
-            	ptr_path = _strcpy(right_path, f_paths);
-                ptr_path = _strcat(right_path, "/");
-	            ptr_path = _strcat(right_path, file_name);
-                if (access(ptr_path, X_OK) == 0)
+			while (f_paths)
+			{
+				ptr_path = _strcpy(right_path, f_paths);
+				ptr_path = _strcat(right_path, "/");
+				ptr_path = _strcat(right_path, file_name);
+				if (access(ptr_path, X_OK) == 0)
 				{
 					free(paths);
-		            return (ptr_path);
+					return (ptr_path);
 				}
 				f_paths = strtok(NULL, ":");
-            }
+			}
 			free(paths);
-        }
+		}
 		i++;
-    }
+	}
 	return (NULL);
 }
