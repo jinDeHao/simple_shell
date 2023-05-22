@@ -6,7 +6,7 @@
 int main(void)
 {
 	size_t len;
-	char *line, *command;
+	char *line = NULL, *command;
 	int nr, loop, statu = 0;
 
 	while (1)

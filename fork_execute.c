@@ -30,6 +30,8 @@ int super_execute(char *command_line)
 		}
 		else
 			perror(args[0]);
+		if (path != args[0])
+			free(path);
 		special_free(args);
 	}
 	return (stat);
@@ -57,12 +59,13 @@ char *full_path(char *file_name)
 			{
 				ptr_path = _strcpy(right_path, f_paths);
 				ptr_path = _strcat(right_path, "/");
-				ptr_path = _strcat(right_path, file_name);
+				ptr_path = _strdup(_strcat(right_path, file_name));
 				if (access(ptr_path, X_OK) == 0)
 				{
 					free(paths);
 					return (ptr_path);
 				}
+				free(ptr_path);
 				f_paths = strtok(NULL, ":");
 			}
 			free(paths);
