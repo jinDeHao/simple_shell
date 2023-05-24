@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * main - simpel shell task 1
+ * main - simpel shell.
  * Return: 0 always
 */
 int main(void)
