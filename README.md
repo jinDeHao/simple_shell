@@ -1,12 +1,12 @@
 
 
-For the project 0x16. C - Simple Shell that starts 2023-05-10, you will work in team:
+For the project 0x16. C - Simple Shell that starts 2023-05-10, we works in team:
 
     SOUFIANE OUMALEK OUMALEK.
     Omar ID HMAID.
 
 Background Context:
-Write a simple UNIX command interpreter.
+simple UNIX command interpreter.
 
 
 We make a programme shell that let us input commands shell i give us the same output as terminal linux shell.
