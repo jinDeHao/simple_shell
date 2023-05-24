@@ -30,7 +30,11 @@ int super_execute(char *command_line)
 				perror("fork");
 		}
 		else
-			perror(args[0]);
+		{
+			write(STDERR_FILENO, "sh: 1: ", 7);
+			write(STDERR_FILENO, args[0], strlen(args[0]));
+			write(STDERR_FILENO, ": not found\n", 12);
+		}
 		if (path != args[0])
 			free(path);
 		special_free(args);
