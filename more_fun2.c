@@ -39,11 +39,9 @@ void puts_env(void)
 	}
 }
 
-/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
 /**
  * look_for_comment - checks for comment
- * @command: the command line
+ * @command_line: the command line
  * Return: command line
 */
 char *look_for_comment(char *command_line)
