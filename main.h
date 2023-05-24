@@ -41,4 +41,4 @@ char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 int our_strncmp(char *str1, char *str2, int n);
 
-#endif
+#endif /* MAIN_H */
