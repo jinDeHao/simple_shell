@@ -31,7 +31,7 @@ int super_execute(char *command_line)
 		}
 		else
 		{
-			write(STDERR_FILENO, "sh: 1: ", 7);
+			write(STDERR_FILENO, "./hsh: 1: ", 10);
 			write(STDERR_FILENO, args[0], strlen(args[0]));
 			write(STDERR_FILENO, ": not found\n", 12);
 		}
