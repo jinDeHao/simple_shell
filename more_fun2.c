@@ -38,3 +38,29 @@ void puts_env(void)
 		write(STDOUT_FILENO, "\n", 1);
 	}
 }
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/**
+ * look_for_comment - checks for comment
+ * @command: the command line
+ * Return: command line
+*/
+char *look_for_comment(char *command_line)
+{
+	int i = 0;
+
+	if (_strlen(command_line) >= 2)
+	{
+		while (command_line[i])
+		{
+			if (command_line[i] == '#' && command_line[i - 1] == ' ')
+			{
+				command_line[i - 1] = '\0';
+				break;
+			}
+			i++;
+		}
+	}
+	return (command_line);
+}

@@ -10,8 +10,9 @@ int super_execute(char *command_line)
 	char **args = NULL, **env = environ, *path;
 	int num_args, stat = 0;
 
-	if (*command_line != '\0')
+	if (*command_line != '\0' && *command_line != '#')
 	{
+		command_line = look_for_comment(command_line);
 		num_args = count_args(command_line);
 		args = allocate_buffer(num_args, command_line);
 		path = full_path(args[0]);
