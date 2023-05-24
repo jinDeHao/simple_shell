@@ -1,9 +1,11 @@
 #include "main.h"
 /**
  * main - simpel shell.
+ * @argc: number of args
+ * @argv: pointer to array of string of arguments
  * Return: 0 always
 */
-int main(void)
+int main(int argc __attribute__((unused)), char *argv[])
 {
 	size_t len;
 	char *line = NULL, *command;
@@ -19,7 +21,7 @@ int main(void)
 			line[nr - 1] = '\0';
 			command = ignore_spaces(line);
 			if (!built_in(command, line, statu))
-				statu = super_execute(command);
+				statu = super_execute(command, argv[0]);
 			free(line);
 			line = NULL;
 		}

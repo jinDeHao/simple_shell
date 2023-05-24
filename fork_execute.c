@@ -2,9 +2,10 @@
 /**
  * super_execute - execute the file
  * @command_line: the file to execute
+ * @nameof: first argv of main
  * Return: the status of the last process
 */
-int super_execute(char *command_line)
+int super_execute(char *command_line, char *nameof)
 {
 	pid_t pid;
 	char **args = NULL, **env = environ, *path;
@@ -31,7 +32,8 @@ int super_execute(char *command_line)
 		}
 		else
 		{
-			write(STDERR_FILENO, "./hsh: 1: ", 10);
+			write(STDERR_FILENO, nameof, strlen(nameof));
+			write(STDERR_FILENO, ": 1: ", 5);
 			write(STDERR_FILENO, args[0], strlen(args[0]));
 			write(STDERR_FILENO, ": not found\n", 12);
 		}

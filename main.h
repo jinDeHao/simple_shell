@@ -30,7 +30,7 @@ char *full_path(char *file_name);
 
 /*command line and execution functions*/
 char *ignore_spaces(char *old_line);
-int super_execute(char *command_line);
+int super_execute(char *command_line, char *nameof);
 int count_args(char *line);
 char *look_for_comment(char *command_line);
 
