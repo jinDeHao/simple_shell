@@ -11,7 +11,7 @@ int main(void)
 
 	while (1)
 	{
-		if (isatty(STDIN_FILENO) == 1 || loop == 1)
+		if (isatty(STDIN_FILENO) == 1)
 			write(STDOUT_FILENO, "#omar/sfn$ ", 11);
 		nr = getline(&line, &len, stdin);
 		if (nr >= 0)
