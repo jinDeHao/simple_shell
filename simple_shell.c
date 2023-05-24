@@ -7,7 +7,7 @@ int main(void)
 {
 	size_t len;
 	char *line = NULL, *command;
-	int nr, loop, statu = 0;
+	int nr, loop = 0, statu = 0;
 
 	while (1)
 	{
@@ -24,7 +24,10 @@ int main(void)
 			line = NULL;
 		}
 		else
+		{
+			free(line);
 			break;
+		}
 		loop++;
 	}
 	return (0);
